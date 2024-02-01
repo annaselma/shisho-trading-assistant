@@ -2,7 +2,7 @@ import BoxHeader from "@/components/BoxHeader";
 import { Box, Typography, useTheme } from "@mui/material";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery } from "@/state/api";
+import { useGetHistoryQuery } from "@/state/api";
 import { useMemo } from "react";
 import {
   ResponsiveContainer,
@@ -30,39 +30,27 @@ const pieData = [
 
 const Row = () => {
   const { palette } = useTheme();
-  const { data } = useGetKpisQuery();
+  const { data } = useGetHistoryQuery();
   const pieColors = [palette.primary[800], palette.primary[300]];
+  console.log("retrivedata", data);
 
-  const revenue = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue }) => {
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-        };
-      })
-    );
-  }, [data]);
+  // const revenue = useMemo(() => {
+  //   return (
+  //     data &&
+  //     data[0].monthlyData.map(({ month, revenue }) => {
+  //       return {
+  //         name: month.substring(0, 3),
+  //         revenue: revenue,
+  //       };
+  //     })
+  //   );
+  // }, [data]);
 
-  const revenueExpenses = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue, expenses }) => {
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-          expenses: expenses,
-        };
-      })
-    );
-  }, [data]);
-
-  fetch('http://localhost:5000/history')
-	.then((r) => r.json())
-	.then((response) => {
-    console.log("data:",response)
-	})
+  // fetch('http://localhost:5000/history')
+	// .then((r) => r.json())
+	// .then((response) => {
+  //   console.log("data:",response)
+	// })
 
   return (
     <>
@@ -76,7 +64,7 @@ const Row = () => {
           <AreaChart
             width={500}
             height={400}
-            data={revenueExpenses}
+            data={[]}
             margin={{
               top: 15,
               right: 25,
@@ -151,7 +139,7 @@ const Row = () => {
           <BarChart
             width={500}
             height={300}
-            data={revenue}
+            data={[]}
             margin={{
               top: 17,
               right: 15,

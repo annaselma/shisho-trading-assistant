@@ -53,21 +53,11 @@ python app.py
 ## Structure TODO
 ```text
 ├── Containerfile            # The file to build a container using buildah or docker
-├── CONTRIBUTING.md          # Onboarding instructions for new contributors
-├── docs                     # Documentation site (add more .md files here)
-│   └── index.md             # The index page for the docs site
-├── MANIFEST.in              # A list of files to include in a package
-├── api                      # The exposed api to the front side
-├── README.md                # The main readme for the project
-├── setup.py                 # The setup.py file for installing and packaging the project
-├── requirements.txt         # An empty file to hold the requirements for the project
-├── setup.py                 # The setup.py file for installing and packaging the project
-└── tests                    # Unit tests for the project (add mote tests files here)
-```
+├── 
 
 
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.

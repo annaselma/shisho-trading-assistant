@@ -1,6 +1,6 @@
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery } from "@/state/api";
+import { useGetHistoryQuery} from "@/state/api";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import {
@@ -19,28 +19,68 @@ import regression, { DataPoint } from "regression";
 const Predictions = () => {
   const { palette } = useTheme();
   const [isPredictions, setIsPredictions] = useState(false);
-  const { data: kpiData } = useGetKpisQuery();
+  const { data: BinanceData } = useGetHistoryQuery();
+
+  const data = [
+    {
+      "name": "Page A",
+      "uv": 4000,
+      "pv": 2400,
+      "amt": 2400
+    },
+    {
+      "name": "Page B",
+      "uv": 3000,
+      "pv": 1398,
+      "amt": 2210
+    },
+    {
+      "name": "Page C",
+      "uv": 2000,
+      "pv": 9800,
+      "amt": 2290
+    },
+    {
+      "name": "Page D",
+      "uv": 2780,
+      "pv": 3908,
+      "amt": 2000
+    },
+    {
+      "name": "Page E",
+      "uv": 1890,
+      "pv": 4800,
+      "amt": 2181
+    },
+    {
+      "name": "Page F",
+      "uv": 2390,
+      "pv": 3800,
+      "amt": 2500
+    },
+    {
+      "name": "Page G",
+      "uv": 3490,
+      "pv": 4300,
+      "amt": 2100
+    }
+  ]
+  
 
   const formattedData = useMemo(() => {
-    if (!kpiData) return [];
-    const monthData = kpiData[0].monthlyData;
+    if (!BinanceData) return [];
 
-    const formatted: Array<DataPoint> = monthData.map(
-      ({ revenue }, i: number) => {
-        return [i, revenue];
-      }
-    );
+
+    const formatted: Array<DataPoint> = []
     const regressionLine = regression.linear(formatted);
 
-    return monthData.map(({ month, revenue }, i: number) => {
       return {
-        name: month,
-        "Actual Revenue": revenue,
-        "Regression Line": regressionLine.points[i][1],
-        "Predicted Revenue": regressionLine.predict(i + 12)[1],
+        name: 12,
+        "Actual Revenue": 129990,
+        "Regression Line": regressionLine.points[0][1],
+        "Predicted Revenue": regressionLine.predict(0 + 12)[1],
       };
-    });
-  }, [kpiData]);
+  }, [BinanceData]);
 
   return (
     <DashboardBox width="100%" height="100%" p="1rem" overflow="hidden">
@@ -65,7 +105,7 @@ const Predictions = () => {
       </FlexBetween>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
-          data={formattedData}
+          data={data}
           margin={{
             top: 20,
             right: 75,
@@ -73,45 +113,13 @@ const Predictions = () => {
             bottom: 80,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke={palette.grey[800]} />
-          <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }}>
-            <Label value="Month" offset={-5} position="insideBottom" />
-          </XAxis>
-          <YAxis
-            domain={[12000, 26000]}
-            axisLine={{ strokeWidth: "0" }}
-            style={{ fontSize: "10px" }}
-            tickFormatter={(v) => `$${v}`}
-          >
-            <Label
-              value="Revenue in USD"
-              angle={-90}
-              offset={-5}
-              position="insideLeft"
-            />
-          </YAxis>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
-          <Legend verticalAlign="top" />
-          <Line
-            type="monotone"
-            dataKey="Actual Revenue"
-            stroke={palette.primary.main}
-            strokeWidth={0}
-            dot={{ strokeWidth: 5 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="Regression Line"
-            stroke="#8884d8"
-            dot={false}
-          />
-          {isPredictions && (
-            <Line
-              strokeDasharray="5 5"
-              dataKey="Predicted Revenue"
-              stroke={palette.secondary[500]}
-            />
-          )}
+          <Legend />
+          <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     </DashboardBox>
