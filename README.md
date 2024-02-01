@@ -28,7 +28,7 @@ https://nodejs.org/en
 npm install
 ```
 ```
-npm start
+npm run dev
 ```
 
 ## Installing Flask
