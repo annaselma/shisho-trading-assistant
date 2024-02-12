@@ -28,6 +28,7 @@ https://nodejs.org/en
 npm install
 ```
 ```
+running the front with:
 npm run dev
 ```
 
@@ -47,7 +48,9 @@ cd into your directory
 ```
 
 ```
-python app.py
+python BinanceRessource.py
+
+get => http://127.0.0.1:5000/api/history
 ```
 
 ## Structure TODO

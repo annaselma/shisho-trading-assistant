@@ -4,13 +4,14 @@ import {
 } from "./types";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://127.0.0.1:5000",
+ }),
   reducerPath: "main",
   tagTypes: ["history"],
   endpoints: (build) => ({
     getHistory: build.query<Array<GetHistoryResponse>, void>({
 
-      query: () => "history",
+      query: () => "api/history",
       providesTags: ["history"],
     }),
   }),

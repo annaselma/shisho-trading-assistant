@@ -13,6 +13,7 @@ export const store = configureStore({
 });
 setupListeners(store.dispatch);
 
+//provide the redux store to react
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
     <App />

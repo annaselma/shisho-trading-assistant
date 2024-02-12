@@ -2,7 +2,6 @@ import BoxHeader from "@/components/BoxHeader";
 import { Box, Typography, useTheme } from "@mui/material";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetHistoryQuery } from "@/state/api";
 import { useMemo } from "react";
 import {
   ResponsiveContainer,
@@ -21,7 +20,7 @@ import {
   Tooltip,
   Area
 } from "recharts";
-import LightweightCharts from "lightweight-charts"
+import { useGetHistoryQuery } from "@/state/api";
 
 const pieData = [
   { name: "Group A", value: 600 },
@@ -30,33 +29,15 @@ const pieData = [
 
 const Row = () => {
   const { palette } = useTheme();
-  const { data } = useGetHistoryQuery();
   const pieColors = [palette.primary[800], palette.primary[300]];
-  console.log("retrivedata", data);
-
-  // const revenue = useMemo(() => {
-  //   return (
-  //     data &&
-  //     data[0].monthlyData.map(({ month, revenue }) => {
-  //       return {
-  //         name: month.substring(0, 3),
-  //         revenue: revenue,
-  //       };
-  //     })
-  //   );
-  // }, [data]);
-
-  // fetch('http://localhost:5000/history')
-	// .then((r) => r.json())
-	// .then((response) => {
-  //   console.log("data:",response)
-	// })
+  const data = useGetHistoryQuery();
+  console.log("data", data);
 
   return (
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
-          title="Cryto Trading History"
+          title="Crypto Trading History"
           subtitle="top line represents the price in USD, bottom line represents the duration"
           sideText="+7,5%"
         />

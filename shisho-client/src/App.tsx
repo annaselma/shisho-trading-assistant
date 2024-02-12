@@ -2,13 +2,16 @@ import { Box } from "@mui/material";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
+import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { themeSettings } from "./theme";
 import Navbar from "@/scenes/navbar";
 import Dashboard from "@/scenes/dashboard";
 import Predictions from "@/scenes/predictions";
+import axios from 'axios';
 
 function App() {
+  const [data, setData] = React.useState({labels:[]});
   const theme = useMemo(() => createTheme(themeSettings), []);
   return (
     <div className="app">

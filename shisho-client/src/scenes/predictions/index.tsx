@@ -1,6 +1,5 @@
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetHistoryQuery} from "@/state/api";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import {
@@ -19,7 +18,6 @@ import regression, { DataPoint } from "regression";
 const Predictions = () => {
   const { palette } = useTheme();
   const [isPredictions, setIsPredictions] = useState(false);
-  const { data: BinanceData } = useGetHistoryQuery();
 
   const data = [
     {
@@ -65,22 +63,6 @@ const Predictions = () => {
       "amt": 2100
     }
   ]
-  
-
-  const formattedData = useMemo(() => {
-    if (!BinanceData) return [];
-
-
-    const formatted: Array<DataPoint> = []
-    const regressionLine = regression.linear(formatted);
-
-      return {
-        name: 12,
-        "Actual Revenue": 129990,
-        "Regression Line": regressionLine.points[0][1],
-        "Predicted Revenue": regressionLine.predict(0 + 12)[1],
-      };
-  }, [BinanceData]);
 
   return (
     <DashboardBox width="100%" height="100%" p="1rem" overflow="hidden">
