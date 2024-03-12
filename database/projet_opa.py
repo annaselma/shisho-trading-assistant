@@ -125,7 +125,7 @@ def save_dayli_database(dataframe):
 
 def main():
     print("Script started.")
-    symbole="PEPEUSDT"
+    symbole="ETHBTC"
 
     time.sleep(5)
     print("Fetch historical data...")
