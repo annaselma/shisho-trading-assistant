@@ -28,9 +28,20 @@ Le dernier container n'est pas insdispensable et pourrait être arrété à tout
 
 ## Etapes de construction
 
+Les commandes suivantes permettent de créer (build) et demarrer les containers
+
     cd ./database
     docker-compose build 
     docker-compose up -d
 
 
+A tout moment vous pouvez les arrrété avec la commande :
+
+    # Assurez vous d'être positionné dans le repertoire **database**
+    docker-compose stop
+    
+Vous avez la possibilité de tous reconstruire après la suppression des container avec la commande:
+
+    # Assurez vous d'être positionné dans le repertoire database
+    docker-compose down
 
