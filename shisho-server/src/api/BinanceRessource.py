@@ -2,7 +2,6 @@ import os
 
 from binance.client import Client
 from flask import Flask, render_template, jsonify
-from binance.enums import *
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -23,19 +22,6 @@ def retrieveBinanceDataBy():
       'data': "data"
     })
 
-@app.route('/')
-def index():
-    title = 'BinanceView'
-
-    account = client.get_account()
-
-    balances = account['balances']
-
-    exchange_info = client.get_exchange_info()
-    symbols = exchange_info['symbols']
-
-    return render_template('index.html', title=title, my_balances=balances, symbols=symbols)
-
 @app.route('/api/history')
 def retrieve_history():
     candlesticks = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_1HOUR, "1 Jul, 2023", "12 Jul, 2023")
@@ -50,7 +36,6 @@ def retrieve_history():
         }
         datas.append(candlesticks)
     return jsonify(datas)
-
 
 
 # A method that runs the application server.
