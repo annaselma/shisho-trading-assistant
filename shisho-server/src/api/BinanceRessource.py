@@ -1,24 +1,22 @@
-import os
-
 from binance.client import Client
 from flask import Flask, render_template, jsonify
-from binance.enums import *
 
 app = Flask(__name__)
-API_KEY = "PWn5MNfr50Ku9dVmcegIqkFdX4lPiM28eE7hlcjKG5GefHn6spRFSqZyby7EQa4S"
-API_SECRET = "Vhi4Az5K3IZPHZud8zmO7Cgw72hCzF7APGOKXzTlu3dpAiNM0txs4D1tILxOgEGf"
+API_KEY = ""
+API_SECRET = ""
 client = Client(API_KEY, API_SECRET)
- 
+
+
 @app.route('/api/v2/trading-datas/<symbol>/<interval>', methods=['GET'])
 def retrieveBinanceDataBy():
-    #if client.status_code != 200:
-        # return jsonify({
-        #     'status': 'error',
-        #     'message': 'La requête à l\'API météo n\'a pas fonctionné. Voici le message renvoyé par l\'API : {}'.format(content['message'])
-        # }), 500
+    # if client.status_code != 200:
+    # return jsonify({
+    #     'status': 'error',
+    #     'message': 'La requête à l\'API météo n\'a pas fonctionné. Voici le message renvoyé par l\'API : {}'.format(content['message'])
+    # }), 500
     return jsonify({
-      'status': 'ok', 
-      'data': "data"
+        'status': 'ok',
+        'data': "data"
     })
 
 @app.route('/')
@@ -33,6 +31,7 @@ def index():
     symbols = exchange_info['symbols']
 
     return render_template('index.html', title=title, my_balances=balances, symbols=symbols)
+
 
 @app.route('/history')
 def retrieve_history():
