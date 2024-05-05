@@ -1,5 +1,3 @@
-import os
-
 from binance.client import Client
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
@@ -9,7 +7,8 @@ CORS(app)
 API_KEY = ""
 API_SECRET = ""
 client = Client(API_KEY, API_SECRET)
- 
+
+
 @app.route('/api/v2/trading-datas/<symbol>/<interval>', methods=['GET'])
 def retrieveBinanceDataBy():
     #if client.status_code != 200:
@@ -18,10 +17,9 @@ def retrieveBinanceDataBy():
         #     'message': 'La requête à l\'API n\'a pas fonctionné. Voici le message renvoyé par l\'API : {}'.format(content['message'])
         # }), 500
     return jsonify({
-      'status': 'ok', 
-      'data': "data"
+        'status': 'ok',
+        'data': "data"
     })
-
 @app.route('/api/history')
 def retrieve_history():
     candlesticks = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_1HOUR, "1 Jul, 2023", "12 Jul, 2023")
