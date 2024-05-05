@@ -68,7 +68,7 @@ const Row = () => {
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
-          title="Cryto Trading History"
+          title="Crypto Trading History"
           subtitle="top line represents the price in USD, bottom line represents the duration"
           sideText="+7,5%"
         />
