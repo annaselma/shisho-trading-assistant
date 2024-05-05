@@ -1,7 +1,9 @@
 from binance.client import Client
 from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 API_KEY = ""
 API_SECRET = ""
 client = Client(API_KEY, API_SECRET)
@@ -9,31 +11,16 @@ client = Client(API_KEY, API_SECRET)
 
 @app.route('/api/v2/trading-datas/<symbol>/<interval>', methods=['GET'])
 def retrieveBinanceDataBy():
-    # if client.status_code != 200:
-    # return jsonify({
-    #     'status': 'error',
-    #     'message': 'La requête à l\'API météo n\'a pas fonctionné. Voici le message renvoyé par l\'API : {}'.format(content['message'])
-    # }), 500
+    #if client.status_code != 200:
+        # return jsonify({
+        #     'status': 'error',
+        #     'message': 'La requête à l\'API n\'a pas fonctionné. Voici le message renvoyé par l\'API : {}'.format(content['message'])
+        # }), 500
     return jsonify({
         'status': 'ok',
         'data': "data"
     })
-
-@app.route('/')
-def index():
-    title = 'BinanceView'
-
-    account = client.get_account()
-
-    balances = account['balances']
-
-    exchange_info = client.get_exchange_info()
-    symbols = exchange_info['symbols']
-
-    return render_template('index.html', title=title, my_balances=balances, symbols=symbols)
-
-
-@app.route('/history')
+@app.route('/api/history')
 def retrieve_history():
     candlesticks = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_1HOUR, "1 Jul, 2023", "12 Jul, 2023")
     datas = []
@@ -47,7 +34,6 @@ def retrieve_history():
         }
         datas.append(candlesticks)
     return jsonify(datas)
-
 
 
 # A method that runs the application server.

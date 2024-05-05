@@ -2,7 +2,6 @@ import BoxHeader from "@/components/BoxHeader";
 import { Box, Typography, useTheme } from "@mui/material";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery } from "@/state/api";
 import { useMemo } from "react";
 import {
   ResponsiveContainer,
@@ -21,7 +20,7 @@ import {
   Tooltip,
   Area
 } from "recharts";
-import LightweightCharts from "lightweight-charts"
+import { useGetHistoryQuery } from "@/state/api";
 
 const pieData = [
   { name: "Group A", value: 600 },
@@ -30,39 +29,9 @@ const pieData = [
 
 const Row = () => {
   const { palette } = useTheme();
-  const { data } = useGetKpisQuery();
   const pieColors = [palette.primary[800], palette.primary[300]];
-
-  const revenue = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue }) => {
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-        };
-      })
-    );
-  }, [data]);
-
-  const revenueExpenses = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue, expenses }) => {
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-          expenses: expenses,
-        };
-      })
-    );
-  }, [data]);
-
-  fetch('http://localhost:5000/history')
-	.then((r) => r.json())
-	.then((response) => {
-    console.log("data:",response)
-	})
+  const data = useGetHistoryQuery();
+  console.log("data", data);
 
   return (
     <>
@@ -76,7 +45,7 @@ const Row = () => {
           <AreaChart
             width={500}
             height={400}
-            data={revenueExpenses}
+            data={[]}
             margin={{
               top: 15,
               right: 25,
@@ -151,7 +120,7 @@ const Row = () => {
           <BarChart
             width={500}
             height={300}
-            data={revenue}
+            data={[]}
             margin={{
               top: 17,
               right: 15,
