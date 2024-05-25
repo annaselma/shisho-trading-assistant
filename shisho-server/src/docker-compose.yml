@@ -27,8 +27,8 @@ services:
     depends_on:
       - db
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: database
+      dockerfile: database/Dockerfile
 
 volumes:
   mariadb_data:

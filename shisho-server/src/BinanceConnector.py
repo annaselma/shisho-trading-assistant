@@ -1,3 +1,5 @@
+import configparser
+
 import config
 import json
 from binance.client import Client
@@ -5,6 +7,11 @@ from datetime import datetime
 import Price
 import utils
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+key = config["binance"]["api_key"]
+secret = config["binance"]["api_secret"]
 client = Client(config.API_KEY, config.API_SECRET)
 
 # prices = client.get_all_tickers()
